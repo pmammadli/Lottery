@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -21,8 +22,10 @@ private Driver() {
 	public static WebDriver getDriver() {
 		if (driver == null) {
 			if(PropertyReader.getProperty("browser").equals("chrome")) {
+				ChromeOptions options = new ChromeOptions();
+				options.setHeadless(true);
 				WebDriverManager.chromedriver().setup();
-				driver = new ChromeDriver();
+				driver = new ChromeDriver(options);
 			} else {
 				WebDriverManager.firefoxdriver().setup();
 				driver = new FirefoxDriver();

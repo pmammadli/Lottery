@@ -19,8 +19,7 @@ Driver.getDriver().get("https://www.txlottery.org/export/sites/lottery/Games/Pow
 		
 		List<WebElement> winningNumbers = numberList.findElements(By.tagName("li"));
 		
-		System.out.println(winningNumbers.size());
-		
+				
 		for (int i =0; i < winningNumbers.size(); i++) {
 			numbers += winningNumbers.get(i).getText();
 			numbers += " ";
