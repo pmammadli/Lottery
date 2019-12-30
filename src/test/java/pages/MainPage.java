@@ -1,5 +1,7 @@
 package pages;
 
+import java.io.PrintWriter;
+import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,10 +15,13 @@ import utilities.PropertyReader;
 public class MainPage {
 
 	
-	public static void main(String[] args) {
-		if (dateChecker()) {
+	public static void main(String[] args) throws SQLException {
+		if (dataChecker2()) {
 		CreateGmailMessage.main(args);
+		
+		
 		}
+		
 	}
 	
 	
@@ -38,4 +43,68 @@ public class MainPage {
 		return newDates;
 	}
 	
+	public static String currentDate() {
+		Driver.getDriver().get(PropertyReader.getProperty("urlResult"));
+		WebElement currentDate = Driver.getDriver().findElement(By.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/div/h3"));
+		String[] getOnlyDate = currentDate.getText().split(" ");
+		
+		return getOnlyDate[4];
+	}
+	
+	
+	public static boolean dataChecker2 () {
+		boolean isNew = false;
+		String queryInsert = "INSERT INTO dates ('date`) VALUES (?);";
+		String querySelect = "Select * from dates;";
+		Set<String> mySet = new HashSet<String>();
+		try {
+		 
+		Statement stmt = dbConnectio().createStatement();
+		ResultSet rs = stmt.executeQuery(querySelect);
+		
+		while (rs.next()) {
+		 
+		 mySet.add(rs.getString("date"));
+		
+			
+		}
+		
+		dbConnectio().close();
+		
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		if (!mySet.contains(currentDate())) {
+			try {
+				isNew = true;
+			addData();
+			} catch (Exception e) {
+				
+			}
+		}
+		
+		return isNew;
+	}
+	
+	public static void addData() throws Exception {
+		
+		String query = "INSERT INTO dates ("
+				+ "`DATE`) VALUES"
+				+ " (? );  ";
+
+		PreparedStatement preparedStmt = dbConnectio().prepareStatement(query);
+		
+		preparedStmt.setString(1, currentDate());
+		
+		preparedStmt.execute();
+
+	}
+	
+	
+	public static Connection dbConnectio() throws Exception {
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lotterydates","root","Qwerty123456!");
+		
+		return con;
+	}
 }
