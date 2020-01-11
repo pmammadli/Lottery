@@ -1,4 +1,4 @@
-package eMail;
+package email;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import utilities.Driver;
 
-public class eMailBody {
+public class EmailBody {
 
 	
 	

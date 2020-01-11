@@ -1,4 +1,4 @@
-package eMail;
+package email;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import utilities.Driver;
 import utilities.PropertyReader;
 
-public class eMailSubject {
+public class EmailSubject {
 
 	
 	

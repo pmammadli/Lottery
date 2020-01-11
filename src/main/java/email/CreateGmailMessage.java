@@ -1,4 +1,4 @@
-package eMail;
+package email;
 
 import com.sun.mail.smtp.SMTPTransport;
 
@@ -23,8 +23,8 @@ public class CreateGmailMessage {
     private static final String EMAIL_TO = "pp55az@yahoo.com";
     private static final String EMAIL_TO_CC = "";
 
-    private static final String EMAIL_SUBJECT = eMailSubject.subjectLine();
-    private static final String EMAIL_TEXT = eMailBody.winNums();
+    private static final String EMAIL_SUBJECT = EmailSubject.subjectLine();
+    private static final String EMAIL_TEXT = MainPage.winNums();
 
     public static void main(String[] args) {
 
